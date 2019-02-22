@@ -1,0 +1,143 @@
+#% text_encoding = iso8859_1
+_package sw
+$
+
+_pragma(classify_level=restricted)
+##
+## GTO implementer class
+##
+def_slotted_exemplar(:gt_colinear_status_remove_implementer,
+	{},
+	{ :gto_datamodel_implementer } )
+$
+_pragma(classify_level=restricted)
+##
+## Register GTO Colinear Status field remove implementer version 1
+##
+gt_colinear_status_remove_implementer.register( :datamodel_name, "gto_datamodel",
+					      :sub_datamodel_name, "gt_colinear_remove",
+					      :version, 6,
+					      :case_dataset_name, gto_datamodel_implementer.case_dataset_name,
+					      :case_change_method, :|remove_status_field()|,
+					      :user_dataset_name, gto_datamodel_implementer.user_dataset_name,
+					      :apply_conv_proc_file, "data/gto_517_cs_gt_colinear_status_remove_apply_proc.magik",
+					      :merge_conv_proc_file, "data/gto_500_cs_gt_colinear_status_remove_merge_conv_proc.magik",
+					      :case_change_results_method, :|upgrade_case_change_results()|,
+					      :upgrade?, _true
+				      )
+$
+
+_pragma(classify_level=restricted)
+_method gt_colinear_status_remove_implementer.upgrade_case_change_results()
+	## 
+	## 
+	l_ccr << case_change_result.new()
+	l_ccr.add(:gt_crossing_range)
+	l_ccr.add(:gt_env_survey)
+	l_ccr.add(:gt_inspection_dig)
+	l_ccr.add(:gt_topography_data)
+	_return {l_ccr}
+_endmethod
+$
+
+
+_pragma(classify_level=restricted)
+_method gt_colinear_status_remove_implementer.remove_status_field(p_target_case_view)
+	## Remove the status object from gt casing object
+	## 
+	_self.remove_status_from_crossing_range(p_target_case_view)
+	_self.remove_status_from_topography_data(p_target_case_view)
+	_self.remove_status_field_from_env_survey(p_target_case_view)
+	_self.remove_status_field_from_inspection_dig(p_target_case_view)
+_endmethod
+$
+_pragma(classify_level=restricted)
+_method gt_colinear_status_remove_implementer.remove_status_from_crossing_range(p_target_case_view)
+	## 
+	##
+	_local l_case_object << p_target_case_view.get_case_object(:gt_crossing_range)
+	l_case_field << l_case_object.default_geometry_field()
+	_if l_case_field _isnt _unset 
+	_then
+		l_case_field.clear_mapping_rec()
+	_endif
+	l_case_object.remove_case_field(:status)
+	l_case_object.remove_case_field(:aba_route)
+	l_case_object.remove_case_field(:exi_route)
+	l_case_object.remove_case_field(:pro_route)
+	l_case_object.remove_case_field(:ina_route)
+	l_case_object.remove_case_field(:tem_route)
+	l_case_object.remove_case_field(:rem_route)
+	l_case_object.remove_case_field(:pro_rem_route)
+	l_case_object.remove_case_field(:pro_aba_route)
+	l_case_object.remove_case_field(:pro_rep_route)
+_endmethod
+$
+_pragma(classify_level=restricted)
+_method gt_colinear_status_remove_implementer.remove_status_from_topography_data(p_target_case_view)
+	## 
+	## 
+	_local l_case_object << p_target_case_view.get_case_object(:gt_topography_data)
+	l_case_field << l_case_object.default_geometry_field()
+	_if l_case_field _isnt _unset 
+	_then
+		l_case_field.clear_mapping_rec()
+	_endif
+	l_case_object.remove_case_field(:status)
+	l_case_object.remove_case_field(:aba_route)
+	l_case_object.remove_case_field(:exi_route)
+	l_case_object.remove_case_field(:pro_route)
+	l_case_object.remove_case_field(:ina_route)
+	l_case_object.remove_case_field(:tem_route)
+	l_case_object.remove_case_field(:rem_route)
+	l_case_object.remove_case_field(:pro_rem_route)
+	l_case_object.remove_case_field(:pro_aba_route)
+	l_case_object.remove_case_field(:pro_rep_route)
+
+_endmethod
+$
+_pragma(classify_level=restricted)
+_method gt_colinear_status_remove_implementer.remove_status_field_from_inspection_dig(p_target_case_view)
+	## 
+	## 
+	_local l_case_object << p_target_case_view.get_case_object(:gt_inspection_dig)
+	l_case_field << l_case_object.default_geometry_field()
+	_if l_case_field _isnt _unset 
+	_then
+		l_case_field.clear_mapping_rec()
+	_endif
+	l_case_object.remove_case_field(:status)
+	l_case_object.remove_case_field(:aba_route)
+	l_case_object.remove_case_field(:exi_route)
+	l_case_object.remove_case_field(:pro_route)
+	l_case_object.remove_case_field(:ina_route)
+	l_case_object.remove_case_field(:tem_route)
+	l_case_object.remove_case_field(:rem_route)
+	l_case_object.remove_case_field(:pro_rem_route)
+	l_case_object.remove_case_field(:pro_aba_route)
+	l_case_object.remove_case_field(:pro_rep_route)
+	
+_endmethod
+$
+_pragma(classify_level=restricted)
+_method gt_colinear_status_remove_implementer.remove_status_field_from_env_survey(p_target_case_view)
+	## 
+	## 
+	_local l_case_object << p_target_case_view.get_case_object(:gt_env_survey)
+	l_case_field << l_case_object.default_geometry_field()
+	_if l_case_field _isnt _unset 
+	_then
+		l_case_field.clear_mapping_rec()
+	_endif
+	l_case_object.remove_case_field(:status)
+	l_case_object.remove_case_field(:aba_route)
+	l_case_object.remove_case_field(:exi_route)
+	l_case_object.remove_case_field(:pro_route)
+	l_case_object.remove_case_field(:ina_route)
+	l_case_object.remove_case_field(:tem_route)
+	l_case_object.remove_case_field(:rem_route)
+	l_case_object.remove_case_field(:pro_rem_route)
+	l_case_object.remove_case_field(:pro_aba_route)
+	l_case_object.remove_case_field(:pro_rep_route)
+_endmethod
+$
